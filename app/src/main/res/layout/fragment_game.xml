@@ -11,19 +11,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_timer"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/cl_top_part"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F44336"
-            android:backgroundTint="#2196F3"
-            android:text="@string/timer"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="48sp"
+            android:background="#2196F3"
+            android:orientation="horizontal"
+            android:weightSum="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/timer"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="48sp"/>
+
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/score"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_playing_field"
@@ -32,7 +52,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_timer">
+            app:layout_constraintTop_toBottomOf="@+id/cl_top_part">
 
             <ImageView
                 android:id="@+id/hole_1"
