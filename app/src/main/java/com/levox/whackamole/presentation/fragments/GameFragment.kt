@@ -31,18 +31,20 @@ class GameFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("FragmentGameBinding == null")
 
     private val options by lazy {
-        mutableListOf<ImageView>().apply {
-            add(binding.hole1)
-            add(binding.hole2)
-            add(binding.hole3)
-            add(binding.hole4)
-            add(binding.hole5)
-            add(binding.hole6)
-            add(binding.hole7)
-            add(binding.hole8)
-            add(binding.hole9)
-        }
+        arrayOf(
+           binding.hole1,
+           binding.hole2,
+           binding.hole3,
+           binding.hole4,
+           binding.hole5,
+           binding.hole6,
+           binding.hole7,
+           binding.hole8,
+           binding.hole9
+        )
     }
+
+    private var previousHole: ImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +57,8 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         observeViewModel()
     }
 
@@ -75,6 +79,24 @@ class GameFragment : Fragment() {
                 getString(R.string.score),
                 score.toString()
             )
+        }
+        viewModel.molePosition.observe(viewLifecycleOwner) {position ->
+            if (previousHole == null) {
+                previousHole = options[position]
+            } else {
+                previousHole!!.isClickable = false
+                previousHole!!.setImageResource(R.drawable.ic_hole_large)
+                previousHole = options[position]
+            }
+            with(options[position]) {
+                setImageResource(R.drawable.ic_mole)
+                isClickable = true
+                setOnClickListener {
+                    viewModel.increaseScore()
+                    setImageResource(R.drawable.ic_hole_large)
+                    isClickable = false
+                }
+            }
         }
     }
 
