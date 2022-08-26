@@ -12,10 +12,17 @@
         tools:layout="@layout/fragment_game_finished">
         <action
             android:id="@+id/action_gameFinishedFragment_to_startFragment"
-            app:destination="@id/startFragment" />
+            app:destination="@id/startFragment"
+            app:popUpTo="@id/startFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_gameFinishedFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/gameFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="result"
+            app:argType="com.levox.whackamole.domain.entity.GameResult" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"

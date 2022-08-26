@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.levox.whackamole.data.AppPreferences
 import com.levox.whackamole.data.GameRepositoryImpl
+import com.levox.whackamole.domain.entity.GameResult
 import com.levox.whackamole.domain.usecases.GenerateMolePositionUseCase
 
 class GameViewModel(application: Application) : AndroidViewModel(application) {
@@ -30,6 +31,14 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private val _molePosition = MutableLiveData<Int>()
     val molePosition: LiveData<Int>
         get() = _molePosition
+
+    private val _gameResult = MutableLiveData<GameResult>()
+    val gameResult: LiveData<GameResult>
+        get() = _gameResult
+
+    init {
+        startGame()
+    }
 
     private fun startGame() {
         startTimer()
@@ -85,14 +94,11 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         if (_score.value!! > appPreferences.getHighScore()) {
             saveHighScore(_score.value!!)
         }
+        _gameResult.value = GameResult(_score.value!!)
     }
 
     fun increaseScore() {
         _score.value = _score.value?.plus(1)
-    }
-
-    private fun startRandomMoles() {
-
     }
 
     private fun generateMolePosition() {
