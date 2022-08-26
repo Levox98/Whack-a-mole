@@ -1,6 +1,5 @@
 package com.levox.whackamole.presentation.fragments
 
-import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -84,8 +83,8 @@ class GameFragment : Fragment() {
             if (previousHole == null) {
                 previousHole = options[position]
             } else {
-                previousHole!!.isClickable = false
                 previousHole!!.setImageResource(R.drawable.ic_hole_large)
+                previousHole!!.isClickable = false
                 previousHole = options[position]
             }
             with(options[position]) {
